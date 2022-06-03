@@ -16,6 +16,8 @@ class Inventory extends Component
     public $search;
     public $producto, $categorias, $statusList, $barcode;
     public $edit = false;
+    public $type_search = 1;
+    public $selectSearch = 'id';
 
     protected $listeners = ['render' => 'render'];
 
@@ -34,6 +36,23 @@ class Inventory extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function updatedTypeSearch($value)
+    {
+        if ($value == 1) {
+            $this->selectSearch = "id";
+            $this->search = "";
+        } elseif ($value == 2) {
+            $this->selectSearch = "barcode";
+            $this->search = "";
+        }elseif ($value == 3) {
+            $this->selectSearch = "name";
+            $this->search = "";
+        }elseif ($value == 4) {
+            $this->selectSearch = "description";
+            $this->search = "";
+        }
     }
 
     public function edit(Producto $producto)
@@ -98,8 +117,9 @@ class Inventory extends Component
 
     public function render()
     {
-        $productos = Producto::where('name', 'LIKE', '%' . $this->search . '%')
-            ->orderBy('name', 'Desc')->paginate('15');
+        $productos = Producto::where($this->selectSearch, 'LIKE', '%' . $this->search . '%')
+            ->orderBy($this->selectSearch, 'Desc')
+            ->paginate('15');
 
         return view('livewire.inventory', compact('productos'));
     }

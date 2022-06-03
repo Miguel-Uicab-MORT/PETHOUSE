@@ -10,11 +10,42 @@
                 @livewire('components.create-product')
             </div>
         @endcan
-
     </div>
+    <section x-data="{ type_search: @entangle('type_search') }">
+        <div class="flex items-center p-3 mb-3 bg-white rounded-lg shadow-lg">
+            <div>
+                <label class="ml-2">
+                    <input value="1" type="radio" x-model="type_search" name="type_search">
+                    <span class="mr-2">
+                        {{ __('ID') }}
+                    </span>
+                </label>
+                <label class="ml-2">
+                    <input value="2" type="radio" x-model="type_search" name="type_search">
+                    <span class="ml-2">
+                        {{ __('Código de barras') }}
+                    </span>
+                </label>
+                <label class="ml-2">
+                    <input value="3" type="radio" x-model="type_search" name="type_search">
+                    <span class="ml-2">
+                        {{ __('Nombre') }}
+                    </span>
+                </label>
+                <label class="ml-2">
+                    <input value="4" type="radio" x-model="type_search" name="type_search">
+                    <span class="ml-2">
+                        {{ __('Descripción') }}
+                    </span>
+                </label>
+            </div>
+        </div>
+    </section>
+
     <div>
         <table class="w-full tables">
             <thead>
+                <th></th>
                 <th>CODIGOS</th>
                 <th>CATEGORIA</th>
                 <th>NOMBRE</th>
@@ -29,8 +60,10 @@
                 @foreach ($productos as $producto)
                     <tr>
                         <td class="text-center">
+                            {{ $producto->id }}
+                        </td>
+                        <td class="text-center">
                             {{ $producto->barcode }}
-
                         </td>
                         <td class="text-center">
                             {{ $producto->categoria->name }}
@@ -88,7 +121,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="8">
+                    <td colspan="9">
                         <div class="py-1 text-center">
                             {{ $productos->links() }}
                         </div>

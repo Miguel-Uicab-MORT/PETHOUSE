@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Servicio extends Model
 {
     use HasFactory;
 
@@ -18,16 +18,8 @@ class Categoria extends Model
         'update_at',
     ];
 
-    /**
-     * Relación uno a muchos
-    */
-    public function productos()
+    public function categoria()
     {
-        return $this->hasMany(Producto::class);
-    }
-
-    public function servicios()
-    {
-        return $this->hasMany(Servicio::class);
+        return $this->belongsTo(Categoria::class);
     }
 }

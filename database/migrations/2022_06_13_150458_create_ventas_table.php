@@ -24,6 +24,7 @@ class CreateVentasTable extends Migration
             $table->json('content');
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
 
             $table->timestamps();
         });
