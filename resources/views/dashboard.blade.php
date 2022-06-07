@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="grid grid-cols-1 gap-1 mt-6 sm:grid-cols-2 lg:grid-cols-3 sm:gap-3 lg:gap-6">
+    <div class="grid grid-cols-1 gap-1 mt-6 sm:grid-cols-3 lg:grid-cols-4 sm:gap-3 lg:gap-6">
         @can('category.index')
             <a href="{{ route('category.index') }}">
                 <div class="p-3 bg-white rounded-lg shadow-xl hover:bg-gray-300">

@@ -22,9 +22,21 @@
                         </x-jet-nav-link>
                     @endcan
 
+                    @can('users.index')
+                        <x-jet-nav-link href="{{ route('client.index') }}" :active="request()->routeIs('client.index')">
+                            {{ __('Clientes') }}
+                        </x-jet-nav-link>
+                    @endcan
+
                     @can('inventory.index')
                         <x-jet-nav-link href="{{ route('inventory.index') }}" :active="request()->routeIs('inventory.index')">
                             {{ __('Inventario') }}
+                        </x-jet-nav-link>
+                    @endcan
+
+                    @can('users.index')
+                        <x-jet-nav-link href="{{ route('service.index') }}" :active="request()->routeIs('service.index')">
+                            {{ __('Servicios') }}
                         </x-jet-nav-link>
                     @endcan
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Components;
 
+use App\Models\Cliente;
 use App\Models\Producto;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
@@ -9,7 +10,7 @@ use phpDocumentor\Reflection\Types\This;
 
 class SearchProduct extends Component
 {
-    public $search;
+    public $search, $searchClient;
     public $alert = false;
     public $producto;
     public $qty = 1, $options = [];
@@ -24,7 +25,7 @@ class SearchProduct extends Component
 
         if ($this->qty == null) {
             $this->qty = 1;
-        }elseif ($this->producto->stock < $this->qty) {
+        } elseif ($this->producto->stock < $this->qty) {
             $this->qty = $this->producto->stock;
         }
         $this->options['cost'] = $this->producto->cost;
@@ -68,11 +69,9 @@ class SearchProduct extends Component
                 foreach ($producto as $item) {
                     $this->addItem($item);
                     $this->search = "";
-                    $this->search = "";
                 }
                 $this->emit('render');
             }
-
         }
     }
 

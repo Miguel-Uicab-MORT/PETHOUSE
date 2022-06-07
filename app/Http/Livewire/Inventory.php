@@ -95,11 +95,10 @@ class Inventory extends Component
 
     public function printBarcode(Producto $producto)
     {
-        $nombreImpresora = "MINIPRINT";
+        $nombreImpresora = "Etiquetadora";
         $connector = new WindowsPrintConnector($nombreImpresora);
         $impresora = new Printer($connector);
         $impresora->setJustification(Printer::JUSTIFY_CENTER);
-        $impresora->text("-------------------------------\n");
         if (strlen($producto->barcode) == 8) {
             $impresora->text($producto->name . "\n");
             $impresora->barcode($producto->barcode, Printer::BARCODE_JAN8);
@@ -110,7 +109,6 @@ class Inventory extends Component
             $impresora->text($producto->name . "\n");
             $impresora->barcode($producto->barcode, Printer::BARCODE_UPCA);
         }
-        $impresora->text("-------------------------------\n");
         $impresora->feed(3);
         $impresora->close();
     }

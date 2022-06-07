@@ -30,7 +30,8 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'category.delete', 'description' => 'Elminar Categorias'])->syncRoles([$role1]);
 
         /**PERMISO PARA ACCESO A EL INVENTARIO*/
-        Permission::create(['name' => 'inventory.index', 'description' => 'Acceder a Inventario'])->syncRoles([$role1]);
+        Permission::create(['name' => 'inventory.index', 'description' => 'Acceder a inventario de productos'])->syncRoles([$role1]);
+        Permission::create(['name' => 'service.index', 'description' => 'Acceder a los servicos'])->syncRoles([$role1]);
 
         /**PERMISOS PARA PRODUCTOS*/
         Permission::create(['name' => 'product.create', 'description' => 'Crear productos'])->syncRoles([$role1]);
@@ -38,6 +39,13 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'product.edit', 'description' => 'Editar productos'])->syncRoles([$role1]);
         Permission::create(['name' => 'product.update', 'description' => 'Actualizar productos'])->syncRoles([$role1]);
         Permission::create(['name' => 'product.delete', 'description' => 'Eliminar productos'])->syncRoles([$role1]);
+
+        /**PERMISOS PARA PRODUCTOS*/
+        Permission::create(['name' => 'service.create', 'description' => 'Crear servicios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'service.store', 'description' => 'Guardar servicios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'service.edit', 'description' => 'Editar servicios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'service.update', 'description' => 'Actualizar servicios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'service.delete', 'description' => 'Eliminar servicios'])->syncRoles([$role1]);
 
         /**PERMISO PARA EL PUNTO DE VENTA*/
         Permission::create(['name' => 'pointsale.create', 'description' => 'Acceder al Punto de Venta'])->syncRoles([$role1, $role2]);
@@ -54,6 +62,13 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'users.edit', 'description' => 'Editar roles y permisos de empleado'])->syncRoles([$role1]);
         Permission::create(['name' => 'users.update', 'description' => 'Actualizar empleado'])->syncRoles([$role1]);
         Permission::create(['name' => 'users.delete', 'description' => 'Eliminar empleado'])->syncRoles([$role1]);
+
+        /**PERMISOS PARA AMINISTRAR A LOS USUARIOS*/
+        Permission::create(['name' => 'client.index', 'description' => 'Acceder a lista de clientes'])->syncRoles([$role1]);
+        Permission::create(['name' => 'client.create', 'description' => 'Crear cliente'])->syncRoles([$role1]);
+        Permission::create(['name' => 'client.edit', 'description' => 'Editar datos del cliente'])->syncRoles([$role1]);
+        Permission::create(['name' => 'client.update', 'description' => 'Actualizar cliente'])->syncRoles([$role1]);
+        Permission::create(['name' => 'client.delete', 'description' => 'Eliminar cliente'])->syncRoles([$role1]);
 
         /**PERMISOS PARA AMINISTRAR LOS ROLES Y PERMISOS DE LOS USUARIOS*/
         Permission::create(['name' => 'users.update.role', 'description' => 'Actualizar roles de empleado'])->syncRoles([$role1]);
