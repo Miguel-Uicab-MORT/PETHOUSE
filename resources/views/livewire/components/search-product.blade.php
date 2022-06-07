@@ -29,19 +29,6 @@
         </div>
     </section>
 
-    @if ($alert == true)
-        <div class="flex items-center justify-between p-3 mt-3 bg-gray-500 rounded-lg shadow-lg">
-
-            <span class="ml-2 text-lg font-bold text-center text-white">
-                {{ __('No hay producto en existencia') }}
-            </span>
-
-            <x-jet-danger-button wire:click='alert'>
-                X
-            </x-jet-danger-button>
-        </div>
-    @endif
-
 
     <div class="mt-3">
         <table class="w-full tables">
@@ -71,7 +58,7 @@
                             </td>
                             <td>
                                 @if ($producto->stock > 0)
-                                    <x-jet-button wire:click='addItem({{ $producto }})'>
+                                    <x-jet-button wire:click='addProduct({{ $producto }})'>
                                         VENDER
                                     </x-jet-button>
                                 @else
@@ -82,6 +69,30 @@
                             </td>
                         </tr>
                     @endforeach
+
+                    @if($servicios != null)
+                        @foreach ($servicios as $servicio)
+                            <tr>
+                                <td class="text-center">
+                                    ---
+                                </td>
+                                <td>
+                                    {{ $servicio->description }}
+                                </td>
+                                <td class="text-center">
+                                    ---
+                                </td>
+                                <td class="font-bold text-center">
+                                    <b>$</b>{{ number_format($servicio->price, 2, '.', ',') }}
+                                </td>
+                                <td>
+                                    <x-jet-button wire:click='addService({{ $servicio }})'>
+                                        VENDER
+                                    </x-jet-button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             @else
                 <tfoot>

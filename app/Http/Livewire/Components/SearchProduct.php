@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Components;
 
 use App\Models\Cliente;
 use App\Models\Producto;
+use App\Models\Servicio;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 use phpDocumentor\Reflection\Types\This;
@@ -19,7 +20,7 @@ class SearchProduct extends Component
     protected $listeners = ['render' => 'render'];
 
 
-    public function addItem(Producto $producto)
+    public function addProduct(Producto $producto)
     {
         $this->producto = $producto;
 
@@ -30,12 +31,38 @@ class SearchProduct extends Component
         }
         $this->options['cost'] = $this->producto->cost;
         $this->options['gain'] = $this->producto->price - $this->producto->cost;
+        $this->options['type'] = "product";
 
         Cart::add([
             'id' => $this->producto->id,
             'name' => $this->producto->description,
             'qty' => $this->qty,
             'price' => $this->producto->price,
+            'weight' => 550,
+            'options' => $this->options
+        ]);
+
+        $this->qty = 1;
+        $this->emit('render');
+    }
+
+    public function addService(Servicio $service)
+    {
+        $this->service = $service;
+
+        if ($this->qty == null) {
+            $this->qty = 1;
+        }
+
+        $this->options['cost'] = $this->service->cost;
+        $this->options['gain'] = $this->service->price - $this->service->cost;
+        $this->options['type'] = "service";
+
+        Cart::add([
+            'id' => $this->service->id,
+            'name' => $this->service->description,
+            'qty' => $this->qty,
+            'price' => $this->service->price,
             'weight' => 550,
             'options' => $this->options
         ]);
@@ -88,6 +115,11 @@ class SearchProduct extends Component
             ->where('status', Producto::Activo)
             ->orderBy($this->selectSearch, 'Desc')->get();
 
-        return view('livewire.components.search-product', compact('productos'));
+        $servicios = Servicio::where('description', 'LIKE', '%' . $this->search . '%')
+            ->where('status', Servicio::Activo)
+            ->orderBy('description', 'Desc')
+            ->get();
+
+        return view('livewire.components.search-product', compact('productos', 'servicios'));
     }
 }

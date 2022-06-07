@@ -75,12 +75,14 @@ class PaymentSale extends Component
         $items = json_decode($venta->content);
 
         foreach ($items as $item) {
-            $this->producto = Producto::find($item->id);
-            $this->producto->stock = $this->producto->stock - $item->qty;
-            if ($this->producto->stock == 0) {
-                $this->producto->status = Producto::Inactivo;
+            if ($item->options->type == "product") {
+                $this->producto = Producto::find($item->id);
+                $this->producto->stock = $this->producto->stock - $item->qty;
+                if ($this->producto->stock == 0) {
+                    $this->producto->status = Producto::Inactivo;
+                }
+                $this->producto->save();
             }
-            $this->producto->save();
         }
 
         if ($this->ticket == 2) {
