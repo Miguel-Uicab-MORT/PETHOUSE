@@ -181,11 +181,9 @@
                 <x-jet-secondary-button class="mr-3" wire:click='edit({{ $servicio }})'>
                     Cancelar
                 </x-jet-secondary-button>
-                @can('product.update')
-                    <x-jet-button wire:click='update'>
-                        Actualizar
-                    </x-jet-button>
-                @endcan
+                <x-jet-button wire:click='update'>
+                    Actualizar
+                </x-jet-button>
             </x-slot>
 
         </x-jet-dialog-modal>

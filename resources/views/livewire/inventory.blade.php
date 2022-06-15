@@ -11,8 +11,8 @@
 
         <div class="flex items-center p-3">
             <div class="flex items-center flex-1">
-                <x-jet-input class="flex-1" wire:model="search" type="text" placeholder="Buscar producto" required
-                    autofocus />
+                <x-jet-input class="flex-1" wire:model="search" type="text" placeholder="Buscar producto"
+                    required autofocus />
             </div>
             @can('product.create')
                 <div class="ml-2">
@@ -109,11 +109,6 @@
                                 <b>$</b>{{ number_format($producto->price, 2, '.', ',') }}
                             </td>
                             <td class="flex justify-end">
-                                <div class="flex justify-center">
-                                    <x-jet-button wire:click='printBarcode({{ $producto }})'>
-                                        <i class="text-xl fas fa-print"></i>
-                                    </x-jet-button>
-                                </div>
                                 @can('product.edit')
                                     <x-jet-secondary-button class="ml-1" wire:click='edit({{ $producto }})'>
                                         <i class="text-xl fas fa-edit"></i>
@@ -216,11 +211,9 @@
                 <x-jet-secondary-button class="mr-3" wire:click='edit({{ $producto }})'>
                     Cancelar
                 </x-jet-secondary-button>
-                @can('product.update')
-                    <x-jet-button wire:click='update'>
-                        Actualizar
-                    </x-jet-button>
-                @endcan
+                <x-jet-button wire:click='update'>
+                    Actualizar
+                </x-jet-button>
             </x-slot>
 
         </x-jet-dialog-modal>

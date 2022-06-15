@@ -6,7 +6,7 @@
     <x-jet-dialog-modal wire:model='create'>
 
         <x-slot name="title">
-            Editar Cliente
+            Nuevo Cliente
         </x-slot>
         <x-slot name="content">
             {!! Form::open() !!}
@@ -75,8 +75,7 @@
                 <div>
                     <div wire:ignore>
                         <x-jet-label value="Colonia"></x-jet-label>
-                        <select class="form-input" name="" id="selected-colonia"
-                            wire:model="colony">
+                        <select class="form-input" name="" id="selected-colonia" wire:model="colony">
                             <option disabled selected>Elige una colonia</option>
                         </select>
                     </div>
@@ -95,11 +94,9 @@
             <x-jet-secondary-button class="mr-3" wire:click='create'>
                 Cancelar
             </x-jet-secondary-button>
-            @can('product.store')
-                <x-jet-button wire:click='store'>
-                    Guardar
-                </x-jet-button>
-            @endcan
+            <x-jet-button wire:click='store'>
+                Guardar
+            </x-jet-button>
 
         </x-slot>
 
@@ -128,7 +125,8 @@
             }
 
             function loadMunicipios(state) {
-                fetch(`https://api.copomex.com/query/get_municipio_por_estado/${state}?token=954d01ff-6b01-4236-af4e-42d9ab11a474`)
+                fetch(
+                        `https://api.copomex.com/query/get_municipio_por_estado/${state}?token=954d01ff-6b01-4236-af4e-42d9ab11a474`)
                     .then(res => res.ok ? res.json() : Promise.reject(res))
                     .then(json => {
                         console.log(json);

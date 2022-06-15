@@ -6,7 +6,7 @@
     <x-jet-dialog-modal wire:model='create'>
 
         <x-slot name="title">
-            Editar Producto
+            Nuevo Producto
         </x-slot>
         <x-slot name="content">
             {!! Form::open() !!}
@@ -85,11 +85,9 @@
             <x-jet-secondary-button class="mr-3" wire:click='create'>
                 Cancelar
             </x-jet-secondary-button>
-            @can('product.store')
-                <x-jet-button wire:click='store'>
-                    Guardar
-                </x-jet-button>
-            @endcan
+            <x-jet-button wire:click='store'>
+                Guardar
+            </x-jet-button>
 
         </x-slot>
 

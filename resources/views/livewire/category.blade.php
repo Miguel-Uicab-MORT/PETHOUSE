@@ -103,11 +103,9 @@
                 <x-jet-secondary-button class="mr-3" wire:click='edit'>
                     Cancelar
                 </x-jet-secondary-button>
-                @can('category.update')
-                    <x-jet-button wire:click='update'>
-                        Guardar
-                    </x-jet-button>
-                @endcan
+                <x-jet-button wire:click='update'>
+                    Guardar
+                </x-jet-button>
             </x-slot>
 
         </x-jet-dialog-modal>
