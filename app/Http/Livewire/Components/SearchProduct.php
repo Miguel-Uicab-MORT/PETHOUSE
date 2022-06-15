@@ -94,7 +94,7 @@ class SearchProduct extends Component
                 $this->alert = 1;
             } else {
                 foreach ($producto as $item) {
-                    $this->addItem($item);
+                    $this->addProduct($item);
                     $this->search = "";
                 }
                 $this->emit('render');

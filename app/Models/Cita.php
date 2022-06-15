@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Servicio extends Model
+class Cita extends Model
 {
     use HasFactory;
 
-    const Activo = 1;
-    const Inactivo = 2;
+    const Confirmada = 1;
+    const Pendiente = 2;
+    const Cancelada = 3;
 
     protected $guarded = [
         'id',
@@ -18,13 +19,13 @@ class Servicio extends Model
         'update_at',
     ];
 
-    public function categoria()
+    public function servicio()
     {
-        return $this->belongsTo(Categoria::class);
+        return $this->belongsTo(Servicio::class);
     }
 
-    public function citas()
+    public function cliente()
     {
-        return $this->hasMany(Cita::class);
+        return $this->belongsTo(Cliente::class);
     }
 }

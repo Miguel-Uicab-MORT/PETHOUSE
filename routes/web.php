@@ -4,6 +4,7 @@ use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Category;
 use App\Http\Livewire\Client;
 use App\Http\Livewire\Components\EditUser;
@@ -43,5 +44,7 @@ Route::put('user/edit/{user}/role', [UserController::class, 'updateRole'])->midd
 Route::put('user/edit/{user}/permission', [UserController::class, 'updatePermission'])->middleware('auth')->can('users.update.permission')->name('users.update.permission');
 
 Route::get('roles', Roles::class)->middleware('auth')->can('roles.index')->name('roles.index');
+
+Route::get('calendar', Calendar::class)->middleware('auth')->name('calendar.index');
 
 

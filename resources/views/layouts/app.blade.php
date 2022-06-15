@@ -32,7 +32,7 @@
         <!-- Page Heading -->
         @if (isset($header))
             <header class="bg-white shadow">
-                <div class="px-4 py-6 mx-auto max-w-8xl sm:px-6 lg:px-8">
+                <div class="container px-4 py-4 mx-auto max-w-8xl sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
             </header>
@@ -49,6 +49,7 @@
     @stack('js')
 
     @livewireScripts
+    @livewireCalendarScripts
 </body>
 
 </html>
