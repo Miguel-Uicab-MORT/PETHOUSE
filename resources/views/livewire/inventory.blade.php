@@ -14,8 +14,11 @@
                 <x-jet-input class="flex-1" wire:model="search" type="text" placeholder="Buscar producto"
                     required autofocus />
             </div>
+            <x-jet-secondary-button class="ml-1" wire:click='printLabels'>
+                Generar Barcode
+            </x-jet-secondary-button>
             @can('product.create')
-                <div class="ml-2">
+                <div class="ml-1">
                     @livewire('components.create-product')
                 </div>
             @endcan

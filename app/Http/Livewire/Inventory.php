@@ -2,10 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Exports\BarcodeExport;
 use App\Models\Categoria;
 use App\Models\Producto;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
@@ -111,6 +113,11 @@ class Inventory extends Component
         }
         $impresora->feed(3);
         $impresora->close();
+    }
+
+    public function printLabels()
+    {
+        return Excel::download(new BarcodeExport, 'labels.csv');
     }
 
     public function render()
