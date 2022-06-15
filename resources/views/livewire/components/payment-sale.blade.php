@@ -10,7 +10,7 @@
         <x-slot name="content">
             <div class="grid grid-cols-2">
                 {!! Form::label('total', 'Total a pagar $:', ['class' => 'strong mr-3 text-right']) !!}
-                <x-jet-input class="flex-1" type="number" value="{{ Cart::subtotal() }}" required disabled
+                <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled
                     autofocus />
             </div>
             <div class="grid grid-cols-2 mt-3">
@@ -68,7 +68,8 @@
         <x-slot name="content">
             <div class="grid grid-cols-2">
                 {!! Form::label('total', 'Total a pagar $:', ['class' => 'strong mr-3 text-right']) !!}
-                <x-jet-input type="number" value="{{ Cart::subtotal() }}" disabled autofocus></x-jet-input>
+                <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled
+                    autofocus />
             </div>
 
             <div class="grid grid-cols-2 mt-3">

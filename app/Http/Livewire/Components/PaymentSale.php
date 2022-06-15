@@ -14,6 +14,8 @@ class PaymentSale extends Component
     public $paymentModal = false;
     public $cambioModal = false;
     public $ticket = 1;
+    public $subtotal = 0;
+    public $total = 0;
     public $recibido;
     public $cambio = 0;
     public $costo = 0;
@@ -32,8 +34,11 @@ class PaymentSale extends Component
     {
         if ($this->paymentModal == false) {
             $this->paymentModal = true;
+            $this->subtotal = Cart::subtotal();
+
         } elseif ($this->paymentModal == true) {
             $this->paymentModal = false;
+            $this->subtotal = 0;
         }
     }
 
@@ -56,14 +61,15 @@ class PaymentSale extends Component
         foreach (Cart::content() as $item) {
             $this->costo += $item->options->cost * $item->qty;
             $this->ganancia += $item->options->gain * $item->qty;
+            $this->total += $item->qty * $item->price;
         }
 
-        $this->cambio = $this->recibido - Cart::subtotal();
+        $this->cambio = $this->recibido - $this->total;
 
         $venta = new Venta();
 
         $venta->costo = $this->costo;
-        $venta->total = Cart::subtotal();
+        $venta->total = $this->total;
         $venta->ganancia = $this->ganancia;
         $venta->recibido = $this->recibido;
         $venta->cambio = $this->cambio;
