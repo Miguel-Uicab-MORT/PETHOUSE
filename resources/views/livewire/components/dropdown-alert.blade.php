@@ -2,7 +2,7 @@
     <x-jet-dropdown width="96" swich="false">
         <x-slot name="trigger">
             <span class="relative inline-block cursor-pointer">
-                <i class="fas fa-bell"></i>
+                <i class=" text-gray-500 fas fa-bell"></i>
             </span>
             <span class="relative inline-block cursor-pointer">
                 {{ $recordatorios->count() + $citas->count() }}
@@ -10,7 +10,7 @@
         </x-slot>
         <x-slot name="content">
             <ul>
-                @foreach ($citas as $cita)
+                @forelse ($citas as $cita)
                     <li class="flex p-2 border-b border-gray-200">
                         <section>
                             <p>
@@ -19,14 +19,18 @@
                             </p>
                             <p>
 
-                                {{Date::parse($cita->scheduled_at)->locale('es')->format('l j F Y') . ' ' . $cita->time }}
+                                {{ Date::parse($cita->scheduled_at)->locale('es')->format('l j F Y') .' ' .$cita->time }}
                             </p>
                         </section>
                     </li>
-                @endforeach
+                @empty
+                <section class=" font-bold text-gray-800 text-center ">
+                    Por el momento no hay citas pendientes para hoy.
+                </section>
+                @endforelse
             </ul>
             <ul>
-                @foreach ($recordatorios as $recordatorio)
+                @forelse ($recordatorios as $recordatorio)
                     <li class="flex p-2 border-b border-gray-200">
                         <section>
                             <p>
@@ -34,12 +38,18 @@
                                 {{ $recordatorio->servicio->name }}
                             </p>
                             <p>
-                                {{Date::parse($recordatorio->scheduled_at)->locale('es')->format('l j F Y') . ' ' . $recordatorio->time }}
+                                {{ Date::parse($recordatorio->scheduled_at)->locale('es')->format('l j F Y') .' ' .$recordatorio->time }}
                             </p>
                         </section>
                     </li>
-                @endforeach
+                @empty
+                <li class="flex p-2 border-b border-gray-200">
+                    <section class=" font-bold text-gray-800 text-center ">
+                        Por el momento no hay citas por confirmar.
+                    </section>
+                </li>
+                @endforelse
             </ul>
-        </x-slot>x  
+        </x-slot>
     </x-jet-dropdown>
 </div>

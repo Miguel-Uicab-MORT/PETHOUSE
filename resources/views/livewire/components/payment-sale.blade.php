@@ -10,8 +10,7 @@
         <x-slot name="content">
             <div class="grid grid-cols-2">
                 {!! Form::label('total', 'Total a pagar $:', ['class' => 'strong mr-3 text-right']) !!}
-                <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled
-                    autofocus />
+                <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled autofocus />
             </div>
             <div class="grid grid-cols-2 mt-3">
                 {!! Form::label('recibido', 'Recibido $:', ['class' => 'strong mr-3 text-right']) !!}
@@ -68,8 +67,7 @@
         <x-slot name="content">
             <div class="grid grid-cols-2">
                 {!! Form::label('total', 'Total a pagar $:', ['class' => 'strong mr-3 text-right']) !!}
-                <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled
-                    autofocus />
+                <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled autofocus />
             </div>
 
             <div class="grid grid-cols-2 mt-3">
