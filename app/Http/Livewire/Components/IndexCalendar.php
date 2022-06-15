@@ -92,8 +92,9 @@ class IndexCalendar extends LivewireCalendar
         $this->reset(['cita', 'create']);
     }
 
-    public function onEventClick(Cita $cita)
+    public function onEventClick($cita_id)
     {
+        $cita = Cita::find($cita_id);
         $this->selectedCita = $cita;
         $this->validate($this->rules);
         $this->clientes = Cliente::pluck('name', 'id');
