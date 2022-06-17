@@ -31,6 +31,7 @@ class BarcodeExport implements FromQuery, WithMapping, WithHeadings, WithColumnF
         return [
             'Barcode', //A
             'Name', //B
+            'Price', //C
         ];
     }
     public function columnFormats(): array
