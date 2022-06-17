@@ -10,6 +10,7 @@ use App\Http\Livewire\Client;
 use App\Http\Livewire\Components\EditUser;
 use App\Http\Livewire\Inventory;
 use App\Http\Livewire\PointSale;
+use App\Http\Livewire\Printer;
 use App\Http\Livewire\Reports;
 use App\Http\Livewire\Roles;
 use App\Http\Livewire\Service;
@@ -46,5 +47,7 @@ Route::put('user/edit/{user}/permission', [UserController::class, 'updatePermiss
 Route::get('roles', Roles::class)->middleware('auth')->can('roles.index')->name('roles.index');
 
 Route::get('calendar', Calendar::class)->middleware('auth')->name('calendar.index');
+
+Route::get('/imprimir', Printer::class );
 
 

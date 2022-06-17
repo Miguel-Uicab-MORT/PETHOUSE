@@ -6,6 +6,8 @@ use App\Models\Producto;
 use App\Models\Venta;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
+use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
@@ -101,12 +103,11 @@ class PaymentSale extends Component
     public function printTicket(Venta $venta)
     {
         $nombreImpresora = "MINIPRINT";
-        $connector = new WindowsPrintConnector($nombreImpresora);
+        $connector = new FilePrintConnector($nombreImpresora);
         $impresora = new Printer($connector);
         $impresora->setJustification(Printer::JUSTIFY_CENTER);
         $impresora->setEmphasis(true);
         $impresora->text("Ticket de venta\n");
-        $impresora->text("FERRETERIA EL INGENIERO\n");
         $impresora->setEmphasis(false);
         $impresora->text("Col. 20 de noviembre, C. Francisco Imadero Entre Pino Suárez, CP: 24085\n");
         $impresora->text("ruizgarciajoseignacio7@gmail.com\n");
