@@ -23,6 +23,7 @@ class BarcodeExport implements FromQuery, WithMapping, WithHeadings, WithColumnF
         return [
             $producto->barcode,
             $producto->name,
+            $producto->price,
         ];
     }
 
