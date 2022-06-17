@@ -20,29 +20,6 @@
                     <x-jet-input-error for="recibido"></x-jet-input-error>
                 </div>
             </div>
-            <div class="mt-3">
-                <section x-data="{ ticket: @entangle('ticket') }">
-                    <div class="flex items-center justify-center">
-                        {!! Form::label('recibido', 'Imprimir ticket:', ['class' => 'strong mr-3 text-right']) !!}
-                    </div>
-                    <div class="flex items-center justify-center p-3 mb-3">
-                        <div>
-                            <label class="mr-2">
-                                <input value="2" type="radio" x-model="ticket" name="ticket">
-                                <span class="ml-2">
-                                    {{ __('Si') }}
-                                </span>
-                            </label>
-                            <label class="ml-2">
-                                <input value="1" type="radio" x-model="ticket" name="ticket">
-                                <span class="ml-2">
-                                    {{ __('No') }}
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                </section>
-            </div>
         </x-slot>
         <x-slot name="footer">
             <x-jet-secondary-button wire:click='paymentModal'>
