@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Mike42\Escpos\PrintConnectors\CupsPrintConnector;
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer as EscposPrinter;
 
@@ -11,7 +12,7 @@ class Printer extends Component
     public function printTicket()
     {
         $nombreImpresora = "MINIPRINT";
-        $connector = new FilePrintConnector($nombreImpresora);
+        $connector = new CupsPrintConnector($nombreImpresora);
         $impresora = new EscposPrinter($connector);
         $impresora->setJustification(EscposPrinter::JUSTIFY_CENTER);
         $impresora->setEmphasis(true);
