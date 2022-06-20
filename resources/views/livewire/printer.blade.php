@@ -1,5 +1,6 @@
 <div>
-    <x-jet-button wire:click='printTicket'>
+    <a href="{{ route('print') }}">
         Imprimir
-    </x-jet-button>
+    </a>
+
 </div>

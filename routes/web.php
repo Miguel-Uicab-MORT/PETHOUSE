@@ -3,6 +3,7 @@
 use App\Http\Controllers\BarcodeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Calendar;
 use App\Http\Livewire\Category;
@@ -49,5 +50,7 @@ Route::get('roles', Roles::class)->middleware('auth')->can('roles.index')->name(
 Route::get('calendar', Calendar::class)->middleware('auth')->name('calendar.index');
 
 Route::get('/imprimir', Printer::class );
+
+Route::get('/imprimiendo/{venta}', [PrinterController::class, 'ticket'] )->name('print');
 
 

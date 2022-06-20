@@ -23,10 +23,12 @@ class PaymentSale extends Component
     public $cambio = 0;
     public $costo = 0;
     public $ganancia = 0;
-    public $producto;
+    public $producto, $ventaid;
     protected $rules = [
         'recibido' => 'required',
     ];
+
+
 
     public function updateTicket($value)
     {
@@ -80,6 +82,8 @@ class PaymentSale extends Component
 
         $venta->save();
 
+        $this->ventaid = $venta;
+
         $items = json_decode($venta->content);
 
         foreach ($items as $item) {
@@ -93,56 +97,7 @@ class PaymentSale extends Component
             }
         }
 
-        $this->printTicket($venta);
-
         $this->cambioModal();
-    }
-
-    public function printTicket(Venta $venta)
-    {
-        $nombreImpresora = "MINIPRINT-2";
-        $connector = new WindowsPrintConnector($nombreImpresora);
-        $logo = EscposImage::load("img/logo-bn2.png");
-        $impresora = new Printer($connector);
-        $impresora->setJustification(Printer::JUSTIFY_CENTER);
-        $impresora->bitImageColumnFormat($logo);
-        $impresora->setJustification(Printer::JUSTIFY_CENTER);
-        $impresora->setEmphasis(true);
-        $impresora->text("Ticket de venta\n");
-        $impresora->setEmphasis(false);
-        $impresora->text("Av Luis Donaldo Colosio Murrieta No.70 entre calle jalisco y\n calle Ecuador, Barrio de Santa Ana, local No14 y 15 planta baja\n");
-        $impresora->text("Celular: 981-111-1111\n");
-        $impresora->text("-------------------------------\n");
-        $impresora->setJustification(Printer::JUSTIFY_LEFT);
-        $impresora->text("Cajero:" . auth()->user()->name . "\n");
-        $impresora->text("Ticket: " . $venta->id . "\n");
-        $impresora->text($venta->created_at . "\n");
-        $impresora->text("-------------------------------\n");
-
-        /**
-        $productos = json_decode($venta->content);
-
-        foreach ($productos as $producto) {
-            $subtotal = $producto->qty * $producto->price;
-            $impresora->setJustification(Printer::JUSTIFY_LEFT);
-            $impresora->text(sprintf("%.2fx%s\n", $producto->qty, $producto->name));
-            $impresora->setJustification(Printer::JUSTIFY_RIGHT);
-            $impresora->text('$' . number_format($subtotal, 2) . "\n");
-        }
-        $impresora->setJustification(Printer::JUSTIFY_CENTER);
-        $impresora->text("-------------------------------\n");
-        $impresora->setJustification(Printer::JUSTIFY_RIGHT);
-        $impresora->setEmphasis(true);
-        $impresora->text("Total: $" . number_format($venta->total, 2) . "\n");
-        $impresora->text("Recibido: $" . number_format($venta->recibido, 2) . "\n");
-        $impresora->text("Cambio: $" . number_format($venta->cambio, 2) . "\n");
-        $impresora->setJustification(Printer::JUSTIFY_CENTER);
-        $impresora->setTextSize(1, 1);
-         */
-        $impresora->text("Gracias por su compra\n");
-        $impresora->text("PETHOUSE");
-        $impresora->feed(2);
-        $impresora->close();
     }
 
     public function render()

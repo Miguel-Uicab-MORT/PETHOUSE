@@ -57,6 +57,11 @@
             </div>
         </x-slot>
         <x-slot name="footer">
+            @if ($ventaid != null)
+                <a href="{{ route('print', $ventaid) }}" target="_blank">
+                    Imprimir
+                </a>
+            @endif
             <x-jet-button wire:click='cambioModal'>
                 Finalizar
             </x-jet-button>
