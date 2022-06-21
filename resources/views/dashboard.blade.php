@@ -1,53 +1,52 @@
 <x-app-layout>
-    <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Bienvenido, {{ Auth::user()->name }}
-            </h2>
-            <!-- Settings Dropdown -->
-            <div class="flex items-center">
-                <div>
-                    @livewire('components.dropdown-alert')
+        <x-slot name="header">
+            <div class="flex items-center justify-end md:justify-between">
+                <h2 class="hidden sm:block text-xl font-semibold leading-tight text-gray-800">
+                    Bienvenido, {{ Auth::user()->name }}
+                </h2>
+                <!-- Settings Dropdown -->
+                <div class="flex items-center">
+                    <div>
+                        @livewire('components.dropdown-alert')
+                    </div>
+
+                    <x-jet-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button type="button"
+                                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
+                                    <img class="object-cover w-8 h-8 mr-2 rounded-full"
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"
+                                        aria-hidden="true" />
+                                    {{ Auth::user()->name }}
+
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </span>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Opciones') }}
+                            </div>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Perfil') }}
+                            </x-jet-dropdown-link>
+
+                            <div class="border-t border-gray-100"></div>
+
+                        </x-slot>
+                    </x-jet-dropdown>
                 </div>
-
-                <x-jet-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <span class="inline-flex rounded-md">
-                            <button type="button"
-                                class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition bg-white border border-transparent rounded-md hover:text-gray-700 focus:outline-none">
-                                <img class="object-cover w-8 h-8 mr-2 rounded-full"
-                                    src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}"
-                                    aria-hidden="true" />
-                                {{ Auth::user()->name }}
-
-                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </span>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <!-- Account Management -->
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Opciones') }}
-                        </div>
-
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __('Perfil') }}
-                        </x-jet-dropdown-link>
-
-                        <div class="border-t border-gray-100"></div>
-
-                    </x-slot>
-                </x-jet-dropdown>
             </div>
-        </div>
-
-    </x-slot>
+        </x-slot>
 
     <div class="grid max-h-screen grid-cols-1 gap-1 mt-6 sm:grid-cols-3 lg:grid-cols-5 sm:gap-3 lg:gap-6">
         <!-- Punto de venta -->

@@ -19,20 +19,28 @@ class PaymentSale extends Component
     public $cambioModal = false;
     public $subtotal = 0;
     public $total = 0;
-    public $recibido;
+    public $recibido, $r_Efectivo = 0, $r_Tarjeta = 0, $r_Total = 0;
     public $cambio = 0;
     public $costo = 0;
     public $ganancia = 0;
     public $producto, $ventaid;
     protected $rules = [
-        'recibido' => 'required',
+        'r_Efectivo' => 'required',
+        'r_Tarjeta' => 'required',
     ];
 
-
-
-    public function updateTicket($value)
+    public function updatedRTarjeta()
     {
-        $this->ticket = $value;
+        if ($this->r_Tarjeta != null) {
+            $this->r_Total = $this->r_Tarjeta + $this->r_Efectivo;
+        }
+    }
+
+    public function updatedREfectivo()
+    {
+        if ($this->r_Efectivo != null) {
+            $this->r_Total = $this->r_Tarjeta + $this->r_Efectivo;
+        }
     }
 
     public function paymentModal()
@@ -68,7 +76,10 @@ class PaymentSale extends Component
             $this->total += $item->qty * $item->price;
         }
 
+        $this->recibido = $this->r_Efectivo + $this->r_Tarjeta;
+
         $this->cambio = $this->recibido - $this->total;
+        $pEfectivo = $this->total - $this->r_Tarjeta;
 
         $venta = new Venta();
 
@@ -76,6 +87,8 @@ class PaymentSale extends Component
         $venta->total = $this->total;
         $venta->ganancia = $this->ganancia;
         $venta->recibido = $this->recibido;
+        $venta->rEfectivo = $pEfectivo;
+        $venta->rTarjeta = $this->r_Tarjeta;
         $venta->cambio = $this->cambio;
         $venta->content = Cart::content();
         $venta->user_id = auth()->user()->id;

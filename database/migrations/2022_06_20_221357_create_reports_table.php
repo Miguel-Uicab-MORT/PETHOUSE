@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVentasTable extends Migration
+class CreateReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,24 @@ class CreateVentasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
 
-            $table->float('costo');
+            $table->float('efectivo');
+            $table->float('tarjeta');
             $table->float('total');
-            $table->float('ganancia');
 
-            $table->float('recibido')->default(0);
-            $table->float('rEfectivo')->default(0);
-            $table->float('rTarjeta')->default(0);
+            $table->float('rEfectivo');
+            $table->float('rTarjeta');
+            $table->float('rTotal');
 
-            $table->float('cambio');
+            $table->float('dEfectivo');
+            $table->float('dTarjeta');
+            $table->float('dTotal');
 
-            $table->json('content');
+            $table->float('caja');
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -42,6 +43,6 @@ class CreateVentasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('reports');
     }
 }

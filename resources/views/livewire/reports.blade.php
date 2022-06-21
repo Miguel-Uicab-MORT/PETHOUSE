@@ -6,6 +6,7 @@
             </x-slot>
         </x-header>
     </x-slot>
+    @livewire('components.create-report')
     <div class="p-3">
         <section x-data="{ type_search: @entangle('type_search') }">
 
@@ -43,13 +44,13 @@
                 <th>
                     Fecha
                 </th>
-                <th>
+                <th class="hidden md:table-cell">
                     Costo
                 </th>
-                <th>
+                <th class="hidden md:table-cell">
                     Total
                 </th>
-                <th>
+                <th class="hidden md:table-cell">
                     Ganancia
                 </th>
                 @can('reports.print')
@@ -77,21 +78,21 @@
                         <td>
                             {{ Date::parse($venta->created_at)->locale('es')->format('l j F Y H:i:s') }}
                         </td>
-                        <td class="font-bold text-center">
+                        <td class="font-bold text-center hidden md:table-cell">
                             <b>$</b>{{ number_format($venta->costo, 2, '.', ',') }}
                         </td>
-                        <td class="font-bold text-center">
+                        <td class="font-bold text-center hidden md:table-cell">
                             <b>$</b>{{ number_format($venta->total, 2, '.', ',') }}
                         </td>
-                        <td class="font-bold text-center">
+                        <td class="font-bold text-center hidden md:table-cell">
                             <b>$</b>{{ number_format($venta->ganancia, 2, '.', ',') }}
                         </td>
                         @can('reports.print')
                             <td>
                                 <div class="flex justify-center">
-                                    <x-jet-button wire:click='printTicket({{ $venta }})'>
+                                    <x-btn-print-ticket href="{{ route('print', $venta) }}" target="_blank">
                                         <i class="text-xl fas fa-print"></i>
-                                    </x-jet-button>
+                                    </x-btn-print-ticket>
                                 </div>
                             </td>
                         @endcan

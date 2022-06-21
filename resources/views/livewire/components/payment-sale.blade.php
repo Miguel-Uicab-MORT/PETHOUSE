@@ -13,11 +13,19 @@
                 <x-jet-input class="flex-1" type="text" wire:model='subtotal' required disabled autofocus />
             </div>
             <div class="grid grid-cols-2 mt-3">
-                {!! Form::label('recibido', 'Recibido $:', ['class' => 'strong mr-3 text-right']) !!}
+                {!! Form::label('r_Efectivo', 'Pago en efectivo $:', ['class' => 'strong mr-3 text-right']) !!}
                 <div>
-                    <x-jet-input class="w-full" wire:model="recibido" type="number" placeholder="Recibi" required
+                    <x-jet-input class="w-full" wire:model="r_Efectivo" type="number" placeholder="Recibi" required
                         autofocus />
-                    <x-jet-input-error for="recibido"></x-jet-input-error>
+                    <x-jet-input-error for="r_Efectivo"></x-jet-input-error>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 mt-3">
+                {!! Form::label('r_Tarjeta', 'Pago con tarjeta $:', ['class' => 'strong mr-3 text-right']) !!}
+                <div>
+                    <x-jet-input class="w-full" wire:model="r_Tarjeta" type="number" placeholder="Recibi" required
+                        autofocus />
+                    <x-jet-input-error for="r_Tarjeta"></x-jet-input-error>
                 </div>
             </div>
         </x-slot>
@@ -25,7 +33,7 @@
             <x-jet-secondary-button wire:click='paymentModal'>
                 Cancelar
             </x-jet-secondary-button>
-            @if ($recibido < Cart::subtotal())
+            @if ($r_Total < $subtotal)
                 <x-jet-button class="ml-1" wire:click='paymentSale' disabled>
                     Cobrar
                 </x-jet-button>
@@ -58,9 +66,9 @@
         </x-slot>
         <x-slot name="footer">
             @if ($ventaid != null)
-                <a href="{{ route('print', $ventaid) }}" target="_blank">
-                    Imprimir
-                </a>
+            <x-btn-print-ticket href="{{ route('print', $ventaid) }}" target="_blank">
+                <i class="text-xl fas fa-print"></i>
+            </x-btn-print-ticket>
             @endif
             <x-jet-button wire:click='cambioModal'>
                 Finalizar
