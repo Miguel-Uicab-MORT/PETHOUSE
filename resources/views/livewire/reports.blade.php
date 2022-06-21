@@ -6,17 +6,23 @@
             </x-slot>
         </x-header>
     </x-slot>
-    @livewire('components.create-report')
+
     <div class="p-3">
         <section x-data="{ type_search: @entangle('type_search') }">
 
             <div class="flex items-center hidden p-3" :class="{ 'hidden': type_search == 2 }">
                 <x-jet-input class="flex-1" wire:model="search" type="text" placeholder="Buscar venta" required
                     autofocus />
+                <div class="ml-2">
+                    @livewire('components.create-report')
+                </div>
             </div>
             <div class="flex items-center hidden p-3" :class="{ 'hidden': type_search == 1 }">
                 <x-jet-input class="flex-1" wire:model="search" type="date" placeholder="Buscar venta" required
                     autofocus />
+                <div class="ml-2">
+                    @livewire('components.create-report')
+                </div>
             </div>
             <div class="flex items-center p-3 mb-3 bg-white rounded-lg shadow-lg">
                 <div>
