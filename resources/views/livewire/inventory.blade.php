@@ -232,11 +232,20 @@
         </x-slot>
         <x-slot name="content">
             {!! Form::open() !!}
+
+            <div class="grid grid-cols-2 gap-5">
                 <div>
                     <x-jet-label>Agregar a existencia:</x-jet-label>
                     {!! Form::number('estock', null, ['wire:model' => 'addStock', 'class' => 'form-input']) !!}
                     <x-jet-input-error for="addStock"></x-jet-input-error>
                 </div>
+
+                <div>
+                    <x-jet-label>Estatus:</x-jet-label>
+                    {!! Form::select('estatus', $statusList, null, ['wire:model' => 'producto.status', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.status"></x-jet-input-error>
+                </div>
+            </div>
             {!! Form::close() !!}
         </x-slot>
         <x-slot name="footer">
