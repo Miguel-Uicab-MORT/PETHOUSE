@@ -35,7 +35,7 @@ class SearchProduct extends Component
 
         Cart::add([
             'id' => $this->producto->id,
-            'name' => $this->producto->description,
+            'name' => $this->producto->name,
             'qty' => $this->qty,
             'price' => $this->producto->price,
             'weight' => 550,
