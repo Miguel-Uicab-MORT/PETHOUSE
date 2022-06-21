@@ -34,7 +34,7 @@
         <table class="w-full tables">
             <thead>
                 <th>CÓDIGO</th>
-                <th>DESCRIPCIÓN</th>
+                <th>NOMBRE</th>
                 <th>EXISTENCIA</th>
                 <th>PRECIO</th>
                 <th></th>
@@ -48,7 +48,7 @@
                                 {{ $producto->barcode }}
                             </td>
                             <td>
-                                {{ $producto->description }}
+                                {{ $producto->name }}
                             </td>
                             <td class="text-center">
                                 {{ $producto->stock }}
