@@ -11,8 +11,8 @@
 
         <div class="flex items-center p-3">
             <div class="flex items-center flex-1">
-                <x-jet-input class="flex-1" wire:model="search" type="text" placeholder="Buscar producto"
-                    required autofocus />
+                <x-jet-input class="flex-1" wire:model="search" type="text" placeholder="Buscar producto" required
+                    autofocus />
             </div>
             <x-jet-secondary-button class="ml-1" wire:click='printLabels'>
                 Generar Barcode
@@ -113,6 +113,9 @@
                             </td>
                             <td class="flex justify-end">
                                 @can('product.edit')
+                                    <x-jet-secondary-button class="ml-1" wire:click='editStock({{ $producto }})'>
+                                        <i class="text-xl fas fa-plus"></i>
+                                    </x-jet-secondary-button>
                                     <x-jet-secondary-button class="ml-1" wire:click='edit({{ $producto }})'>
                                         <i class="text-xl fas fa-edit"></i>
                                     </x-jet-secondary-button>
@@ -137,88 +140,113 @@
                 </tfoot>
             </table>
         </div>
-
-        <x-jet-dialog-modal wire:model='edit'>
-
-            <x-slot name="title">
-                Editar producto
-            </x-slot>
-            <x-slot name="content">
-                {!! Form::open() !!}
-                <div class="grid grid-cols-2 gap-5">
-                    <div>
-                        <x-jet-label>Categoria:</x-jet-label>
-                        {!! Form::select('ecategoria_id', $categorias, null, ['wire:model' => 'producto.categoria_id', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.categoria_id"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Nombre del producto:</x-jet-label>
-                        {!! Form::text('ename', null, ['wire:model' => 'producto.name', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.name"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Slug:</x-jet-label>
-                        {!! Form::text('eslug', null, ['wire:model' => 'producto.slug', 'class' => 'form-input', 'disabled']) !!}
-                        <x-jet-input-error for="producto.slug"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Descripción:</x-jet-label>
-                        {!! Form::text('edescription', null, ['wire:model' => 'producto.description', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.description"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Costo:</x-jet-label>
-                        {!! Form::number('ecost', null, ['wire:model' => 'producto.cost', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.cost"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Precio:</x-jet-label>
-                        {!! Form::number('eprice', null, ['wire:model' => 'producto.price', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.price"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>En existencia:</x-jet-label>
-                        {!! Form::number('estock', null, ['wire:model' => 'producto.stock', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.stock"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Estatus:</x-jet-label>
-                        {!! Form::select('estatus', $statusList, null, ['wire:model' => 'producto.status', 'class' => 'form-input']) !!}
-                        <x-jet-input-error for="producto.status"></x-jet-input-error>
-                    </div>
-                    <div>
-                        <x-jet-label>Codigo de barras:</x-jet-label>
-                        {!! Form::number('ebarcode', null, ['wire:model' => 'producto.barcode', 'class' => 'form-input', 'disabled']) !!}
-                        <x-jet-input-error for="producto.barcode"></x-jet-input-error>
-                    </div>
-                    @if ($barcode != null)
-                        @if (strlen($barcode) == 8)
-                            <div class="flex items-center justify-center">
-                                {!! DNS1D::getBarcodeHTML($barcode, 'EAN8') !!}
-                            </div>
-                        @elseif (strlen($barcode) == 13)
-                            <div class="flex items-center justify-center">
-                                {!! DNS1D::getBarcodeHTML($barcode, 'EAN13') !!}
-                            </div>
-                        @elseif (strlen($barcode) == 12)
-                            <div class="flex items-center justify-center">
-                                {!! DNS1D::getBarcodeHTML($barcode, 'UPCA') !!}
-                            </div>
-                        @endif
-                    @endif
-
-                </div>
-                {!! Form::close() !!}
-            </x-slot>
-            <x-slot name="footer">
-                <x-jet-secondary-button class="mr-3" wire:click='edit({{ $producto }})'>
-                    Cancelar
-                </x-jet-secondary-button>
-                <x-jet-button wire:click='update'>
-                    Actualizar
-                </x-jet-button>
-            </x-slot>
-
-        </x-jet-dialog-modal>
     </div>
+
+    <x-jet-dialog-modal wire:model='edit'>
+
+        <x-slot name="title">
+            Editar producto
+        </x-slot>
+        <x-slot name="content">
+            {!! Form::open() !!}
+            <div class="grid grid-cols-2 gap-5">
+                <div>
+                    <x-jet-label>Categoria:</x-jet-label>
+                    {!! Form::select('ecategoria_id', $categorias, null, ['wire:model' => 'producto.categoria_id', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.categoria_id"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Nombre del producto:</x-jet-label>
+                    {!! Form::text('ename', null, ['wire:model' => 'producto.name', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.name"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Slug:</x-jet-label>
+                    {!! Form::text('eslug', null, ['wire:model' => 'producto.slug', 'class' => 'form-input', 'disabled']) !!}
+                    <x-jet-input-error for="producto.slug"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Descripción:</x-jet-label>
+                    {!! Form::text('edescription', null, ['wire:model' => 'producto.description', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.description"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Costo:</x-jet-label>
+                    {!! Form::number('ecost', null, ['wire:model' => 'producto.cost', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.cost"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Precio:</x-jet-label>
+                    {!! Form::number('eprice', null, ['wire:model' => 'producto.price', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.price"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>En existencia:</x-jet-label>
+                    {!! Form::number('estock', null, ['wire:model' => 'producto.stock', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.stock"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Estatus:</x-jet-label>
+                    {!! Form::select('estatus', $statusList, null, ['wire:model' => 'producto.status', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="producto.status"></x-jet-input-error>
+                </div>
+                <div>
+                    <x-jet-label>Codigo de barras:</x-jet-label>
+                    {!! Form::number('ebarcode', null, ['wire:model' => 'producto.barcode', 'class' => 'form-input', 'disabled']) !!}
+                    <x-jet-input-error for="producto.barcode"></x-jet-input-error>
+                </div>
+                @if ($barcode != null)
+                    @if (strlen($barcode) == 8)
+                        <div class="flex items-center justify-center">
+                            {!! DNS1D::getBarcodeHTML($barcode, 'EAN8') !!}
+                        </div>
+                    @elseif (strlen($barcode) == 13)
+                        <div class="flex items-center justify-center">
+                            {!! DNS1D::getBarcodeHTML($barcode, 'EAN13') !!}
+                        </div>
+                    @elseif (strlen($barcode) == 12)
+                        <div class="flex items-center justify-center">
+                            {!! DNS1D::getBarcodeHTML($barcode, 'UPCA') !!}
+                        </div>
+                    @endif
+                @endif
+
+            </div>
+            {!! Form::close() !!}
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button class="mr-3" wire:click='edit({{ $producto }})'>
+                Cancelar
+            </x-jet-secondary-button>
+            <x-jet-button wire:click='update'>
+                Actualizar
+            </x-jet-button>
+        </x-slot>
+
+    </x-jet-dialog-modal>
+
+    <x-jet-dialog-modal wire:model='editStock'>
+
+        <x-slot name="title">
+            Agregar stock
+        </x-slot>
+        <x-slot name="content">
+            {!! Form::open() !!}
+                <div>
+                    <x-jet-label>Agregar a existencia:</x-jet-label>
+                    {!! Form::number('estock', null, ['wire:model' => 'addStock', 'class' => 'form-input']) !!}
+                    <x-jet-input-error for="addStock"></x-jet-input-error>
+                </div>
+            {!! Form::close() !!}
+        </x-slot>
+        <x-slot name="footer">
+            <x-jet-secondary-button class="mr-3" wire:click='editStock({{ $producto }})'>
+                Cancelar
+            </x-jet-secondary-button>
+            <x-jet-button wire:click='updateStock'>
+                Actualizar
+            </x-jet-button>
+        </x-slot>
+
+    </x-jet-dialog-modal>
 </div>

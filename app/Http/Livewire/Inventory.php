@@ -16,8 +16,9 @@ class Inventory extends Component
     use WithPagination;
 
     public $search;
-    public $producto, $categorias, $statusList, $barcode;
+    public $producto, $categorias, $statusList, $barcode, $stock, $addStock;
     public $edit = false;
+    public $editStock = false;
     public $type_search = 1;
     public $selectSearch = 'id';
 
@@ -78,6 +79,33 @@ class Inventory extends Component
         $this->producto->save();
 
         $this->edit = false;
+
+        $this->emit('render');
+    }
+
+    public function editStock(Producto $producto)
+    {
+        $this->producto = $producto;
+        $this->stock = $this->producto->stock;
+        $this->validate();
+
+        if ($this->editStock == false) {
+            $this->editStock = true;
+        } elseif ($this->editStock == true) {
+            $this->editStock = false;
+            $this->reset(['producto']);
+        }
+    }
+
+    public function updateStock()
+    {
+        $this->producto->stock = $this->stock + $this->addStock;
+
+        $this->producto->save();
+
+        $this->editStock = false;
+
+        $this->reset(['producto', 'addStock']);
 
         $this->emit('render');
     }
